@@ -98,24 +98,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Linkvertise script loader (make sure it's loaded and works)
-    function loadLinkvertise() {
-        if (!document.getElementById('linkvertise-script')) {
-            const script = document.createElement('script');
-            script.id = 'linkvertise-script';
-            script.src = "https://publisher.linkvertise.com/cdn/linkvertise.js";
-            script.onload = function() {
-                if (typeof linkvertise === 'function') {
-                    linkvertise(1351053, {whitelist: [], blacklist: [""]});
-                }
-            };
-            document.body.appendChild(script);
-        } else {
-            // If already loaded, just call linkvertise
-            if (typeof linkvertise === 'function') {
-                linkvertise(1351053, {whitelist: [], blacklist: [""]});
-            }
-        }
-    }
-    loadLinkvertise();
-});
+    
