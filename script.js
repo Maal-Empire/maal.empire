@@ -53,9 +53,23 @@ document.addEventListener('DOMContentLoaded', function() {
             const email = this.email.value;
             const phone = this.phone.value;
             const dob = this.dob.value;
+
+            // File inputs for passport and resume
+            const passportFile = this.passport && this.passport.files[0];
+            const resumeFile = this.resume && this.resume.files[0];
+
+            // Compose file info text
+            let filesText = '';
+            if(passportFile) {
+                filesText += `, Passport: ${passportFile.name}`;
+            }
+            if(resumeFile) {
+                filesText += `, Resume: ${resumeFile.name}`;
+            }
+
             // Add request to list
             const li = document.createElement('li');
-            li.textContent = `Name: ${name}, Email: ${email}, Phone: ${phone}, DOB: ${dob}`;
+            li.textContent = `Name: ${name}, Email: ${email}, Phone: ${phone}, DOB: ${dob}${filesText}`;
             requestsList.appendChild(li);
             // Reset form & close modal
             this.reset();
@@ -83,4 +97,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Linkvertise script loader (make sure it's loaded and works)
+    function loadLinkvertise() {
+        if (!document.getElementById('linkvertise-script')) {
+            const script = document.createElement('script');
+            script.id = 'linkvertise-script';
+            script.src = "https://publisher.linkvertise.com/cdn/linkvertise.js";
+            script.onload = function() {
+                if (typeof linkvertise === 'function') {
+                    linkvertise(1351053, {whitelist: [], blacklist: [""]});
+                }
+            };
+            document.body.appendChild(script);
+        } else {
+            // If already loaded, just call linkvertise
+            if (typeof linkvertise === 'function') {
+                linkvertise(1351053, {whitelist: [], blacklist: [""]});
+            }
+        }
+    }
+    loadLinkvertise();
 });
